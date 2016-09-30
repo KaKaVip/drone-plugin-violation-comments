@@ -31,7 +31,7 @@ The following is a sample configuration in your .drone.yml file:
 ```YML
 notify:
   violationcomments:
-    image: kakavip/drone-violation-comments
+    image: fdplugins/drone-violation-comments
     enable: true
     createsinglefilecomments: true
     createCommentWithAllSingleFileComments: true

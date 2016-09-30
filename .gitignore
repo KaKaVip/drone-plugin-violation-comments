@@ -1,3 +1,4 @@
 .drone.yml
 demo.json
-java-violation-comments/
+.idea/
+out/
