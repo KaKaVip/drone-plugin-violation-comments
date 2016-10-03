@@ -31,11 +31,11 @@ The following is a sample configuration in your .drone.yml file:
 ```YML
 notify:
   violationcomments:
-    image: fdplugins/drone-violation-comments
+    image: fdplugins/violation-comments
     enable: true
     createsinglefilecomments: true
-    createCommentWithAllSingleFileComments: true
-    commentOnlyChangedContent: true
+    createcommentwithallsinglefilecomments: false
+    commentonlychangedcontent: true
     github:
       username: $$GITHUB_USERNAME
       password: $$GITHUB_PASSWORD
@@ -59,4 +59,5 @@ notify:
       xmllint: .*/xmllint/.*\\.xml$
       perlcritic: .*/perlcritic/.*\\.xml$
       pitest: .*/pitest/.*\\.xml$
+
 ```
