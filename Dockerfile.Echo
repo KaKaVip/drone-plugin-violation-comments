@@ -1,6 +1,0 @@
-FROM anapsix/alpine-java
-MAINTAINER haipq7641@gmail.com
-
-COPY droneecho.jar /scripts/droneecho.jar
-
-ENTRYPOINT ["java", "-jar", "/scripts/droneecho.jar"]

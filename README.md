@@ -21,7 +21,15 @@ Use this plugin for violation comments to GitHub or Bitbucket.
  Easy to create a GitHub OAuth2 token.
 
  ```CMD
- curl -u 'yourgithubuser' -d '{"note":"Violation comments"}' https://api.github.com/authorizations
+ curl -u 'your github user' -d '{
+  "scopes": [
+    "repo",
+    "public_repo",
+    "repo_deployment",
+    "repo:status"
+  ],
+  "note": "Framgia CI/CD comments to github"
+}' https://api.github.com/authorizations
  ```
 
 # Example

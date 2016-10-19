@@ -1,6 +1,6 @@
 FROM anapsix/alpine-java
 MAINTAINER haipq7641@gmail.com
 
-COPY java-violation-comments.jar /scripts/java-violation-comments.jar
+COPY framgia-comments-to-github.jar /scripts/framgia-comments-to-github.jar
 
-ENTRYPOINT ["java", "-jar", "/scripts/java-violation-comments.jar"]
+ENTRYPOINT ["java", "-jar", "/scripts/framgia-comments-to-github.jar"]
