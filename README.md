@@ -1,19 +1,17 @@
 Use this plugin for violation comments to GitHub or Bitbucket.
 
-# Parameters:
+Link Docker Hub [fdplugins/violation-comments](https://hub.docker.com/r/fdplugins/violation-comments/)
 
-- `enable` - true is enable, false is disable
-- `createsinglefilecomments` - Create one comment per violation
-- `createcommentwithallsinglefilecomments` - Create one big comment with all violations
-- `github` - if using for Github service
-  * `username` - (`Optional`) This GitHub user. `*`
-  * `password` - (`Optional`) This GitHub password. `*`
-  * `token` - (`Optional`) This GitHub token. `*` `**`
-- `bitbucket` - if using for Bitbucket service
-  * `username` - This Bitbucket user. `*`
-  * `password` - This Bitbucket password. `*`
-  * `projectkey` - This Bitbucket project key. `*`
+# Environment:
 
+- `ENABLE` - true is enable, false is disable
+- `COMMENT_ONLY_CHANGED_CONTENT` - Create one comment per violation
+- `CREATE_SINGLE_FILE_COMMENTS` - Comment only changed part of files
+- `CREATE_COMMENT_WITH_ALL_SINGLE_FILE_COMMENTS` - Create one big comment with all violations
+- `GITHUB_TOKEN` - (`Optional`) This GitHub token. `*` `**`
+- `GITHUB_USERNAME` - (`Optional`) This GitHub user. `*`
+- `GITHUB_PASSWORD` - (`Optional`) This GitHub user. `*`
+- `VIOLATION_{FORMAT}` - (`Optional`) See example in below.
 
 `*` Use **Drone Secret** . More detail at http://readme.drone.io/usage/secrets/
 
@@ -37,35 +35,46 @@ Use this plugin for violation comments to GitHub or Bitbucket.
 The following is a sample configuration in your .drone.yml file:
 
 ```YML
-notify:
+build:
   violationcomments:
-    image: fdplugins/violation-comments
-    enable: true
-    createsinglefilecomments: true
-    createcommentwithallsinglefilecomments: false
-    commentonlychangedcontent: true
-    github:
-      username: $$GITHUB_USERNAME
-      password: $$GITHUB_PASSWORD
-      token: $$GITHUB_TOKEN
-    bitbucket:
-      username: $$BITBUCKET_USERNAME
-      password: $$BITBUCKET_PASSWORD
-      projectkey: $$BITBUCKET_PROJECTKEY
-    violations:
-      checkstyle: .*/checkstyle/.*\\.xml$
-      findbugs: .*/findbugs/.*\\.xml$
-      pmd: .*/pmd/.*\\.xml$
-      androidlint: .*/androidlint/.*\\.xml$
-      csslint: .*/csslint/.*\\.xml$
-      jshint: .*/jshint/.*\\.xml$
-      lint: .*/lint/.*\\.xml$
-      cppcheck: .*/cppcheck/.*\\.xml$
-      reshaprper: .*/reshaprper/.*\\.xml$
-      flake8: .*/flake8/.*\\.xml$
-      cpplint: .*/cpplint/.*\\.xml$
-      xmllint: .*/xmllint/.*\\.xml$
-      perlcritic: .*/perlcritic/.*\\.xml$
-      pitest: .*/pitest/.*\\.xml$
+    image: fdplugins/violation-comments:latest
+    environment:
+      - ENABLE=true
+      - GITHUB_TOKEN=$$GITHUB_TOKEN
+      - CREATE_SINGLE_FILE_COMMENTS=true
+      - CREATE_COMMENT_WITH_ALL_SINGLE_FILE_COMMENTS=false
+      - COMMENT_ONLY_CHANGED_CONTENT=true
+      - VIOLATION_CHECKSTYLE=.*/reports/checkstyle/.*\\.xml$
+      - VIOLATION_CSSLINT=.*/reports/csslint/.*\\.xml$
+      - VIOLATION_LINT=.*/reports/lint/.*\\.xml$
+      - VIOLATION_FINDBUGS=.*/reports/findbugs/.*\\.xml$
+      - VIOLATION_JSHINT=.*/reports/jshint/.*\\.xml$
+      - VIOLATION_PMD=.*/reports/pmd/.*\\.xml$
+      - VIOLATION_CPPCHECK=.*/reports/cppcheck/.*\\.xml$
+      - VIOLATION_RESHARPER=.*/reports/reshaprper/.*\\.xml$
+      - VIOLATION_FLAKE8=.*/reports/flake8/.*\\.xml$
+      - VIOLATION_CPPLINT=.*/reports/cpplint/.*\\.xml$
+      - VIOLATION_XMLLINT=.*/reports/xmllint/.*\\.xml$
+      - VIOLATION_PERLCRITIC=.*/reports/perlcritic/.*\\.xml$
+      - VIOLATION_PITEST=.*/reports/pitest/.*\\.xml$
+      - VIOLATION_ANDROIDLINT=.*/reports/androidlint/.*\\.xml$
+    commands:
+      - violationcomments
+```
 
+For only checkstyle:
+
+```YML
+build:
+  violationcomments:
+    image: fdplugins/violation-comments:latest
+    environment:
+      - ENABLE=true
+      - GITHUB_TOKEN=$$GITHUB_TOKEN
+      - CREATE_SINGLE_FILE_COMMENTS=true
+      - CREATE_COMMENT_WITH_ALL_SINGLE_FILE_COMMENTS=false
+      - COMMENT_ONLY_CHANGED_CONTENT=true
+      - VIOLATION_CHECKSTYLE=.*/reports/checkstyle/.*\\.xml$
+    commands:
+    - violationcomments
 ```
